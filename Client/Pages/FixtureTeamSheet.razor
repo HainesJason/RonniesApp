@@ -1,0 +1,41 @@
+﻿@page "/fixtureteamsheet/{Id:int}"
+@using SMS.Shared.DTOs.Availability;
+@using StanwayRonnies.Services;
+@inject IAvailabilityData AvailabilityData
+@if (fixtureDetail is not null)
+{
+    <h3>Availability for @fixtureDetail.Opponents</h3>
+    <h5>@fixtureDetail.Venue.ToString() - @fixtureDetail.DateOfFixture (Start Time: @fixtureDetail.StartTime)</h5>
+    
+    <table class="table table-responsive-sm table-hover">
+        <thead>
+            <tr>
+                <td>Player</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in fixtureDetail.AvailablePlayers)
+            {
+                <tr>
+                    <td>@p.Fullname</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Loading please wait...</p>
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private PlayersAvailableForFixtureDto fixtureDetail;
+
+    protected async override Task OnInitializedAsync()
+    {
+        fixtureDetail = await AvailabilityData.FixtureAvailabilityDetail(Id);
+    }
+    }

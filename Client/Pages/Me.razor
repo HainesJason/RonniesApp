@@ -1,0 +1,88 @@
+﻿@page "/me/{Id:int}"
+@using SMS.Shared.DTOs.Availability;
+@using StanwayRonnies.Services;
+@inject IAvailabilityData AvailabilityService
+@if (myAvailability is null)
+{
+    <p>Loading please wait....</p>
+}
+else
+{
+    <PageTitle>Edit Availability</PageTitle>
+    <h3>Availability for @myAvailability.Fullname</h3>
+    <p>Click on a fixture to provide availability.</p>
+    <ul>
+        <li>Green = available</li>
+        <li>Red = not available</li>
+    </ul>
+    <div class="alert alert-info">Current available for <strong>@myAvailability.PlayersCurrentAvailability.Where(x => x.CurrentAvailabilityStatus == true).Count() </strong> game(s)</div>
+    <table class="table table-responsive table-hover">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Opponents</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var f in myAvailability.PlayersCurrentAvailability)
+
+            {
+                var availableText = f.CurrentAvailabilityStatus ? "Yes" : "No";
+                var btnClass = "btn btn-danger custom-btn";
+                if (f.CurrentAvailabilityStatus)
+                {
+                    btnClass = "btn btn-success custom-btn";
+                }
+                <tr>
+                    <td>
+                        @f.DateOfFixture  <small>[@availableText]</small><br />
+                        @f.StartTime
+                    </td>
+                    <td><button style="width: 60%" class="@btnClass" @onclick="() => Save(f.FixtureId, f.CurrentAvailabilityStatus)">@f.Opponent (@f.Venue) @f.StartTime</button></td>
+
+                </tr>
+            }
+
+        </tbody>
+        <tfooter></tfooter>
+    </table>
+}
+
+
+
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private MeDTO myAvailability = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        myAvailability = await AvailabilityService.MyAvailability(Id);
+    }
+
+    protected async Task Save(int fixtureId, bool currentStatus)
+    {
+        Console.WriteLine(fixtureId.ToString(), currentStatus.ToString());
+        var dataToPost = new AddAvailabilityDto
+            {
+                FixtureId = fixtureId,
+                PlayerId = Id,
+                IsAvailable = !currentStatus
+            };
+        await AvailabilityService.SaveAvailability(dataToPost);
+
+        foreach (var ma in myAvailability.PlayersCurrentAvailability)
+        {
+            if (ma.FixtureId == dataToPost.FixtureId)
+            {
+                ma.CurrentAvailabilityStatus = dataToPost.IsAvailable;
+            }
+        }
+        StateHasChanged();
+
+
+    }
+}

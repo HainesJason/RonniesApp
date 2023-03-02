@@ -1,0 +1,57 @@
+﻿@page "/fixtures"
+@using SMS.Shared.DTOs.Availability;
+@using SMS.Shared.DTOs.Fixtures;
+@using StanwayRonnies.Services;
+@inject IAvailabilityData AvailabilityData
+
+<PageTitle>Availability</PageTitle>
+<h3>Fixtures</h3>
+@if (fixtureCounts is not null)
+{
+    <table class="table table-responsive-sm table-hover">
+        <thead>
+            <tr>
+                <th>Fixture</th>
+                <th>Date</th>
+               
+                <th>Players</th>
+           
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var fc in fixtureCounts)
+            {
+                <tr>
+                    <td><a href="fixtureteamsheet/@fc.FixtureId">@fc.FixtureDetail</a></td>
+                    <td>@fc.DateOfFixture</td>
+                    
+                    @if (fc.PlayersAvailable < fc.PlayersRequired)
+                    {
+                        countStyle = "text-danger";
+                    }
+                    else
+                    {
+                        countStyle = "text-success";
+                    }
+                    <td><span class="@countStyle">@fc.PlayersAvailable</span></td>
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
+else
+{
+    <p>Loading please wait...</p>
+}
+
+@code {
+    private IEnumerable<FixtureCountSummaryDto> fixtureCounts;
+    private string countStyle = "";
+
+    protected async override Task OnInitializedAsync()
+    {
+        fixtureCounts = await AvailabilityData.FixtureAvailabilitySummary();
+    }
+}

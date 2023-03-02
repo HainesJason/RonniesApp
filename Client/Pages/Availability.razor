@@ -1,0 +1,43 @@
+﻿@page "/availability"
+@using SMS.Shared.DTOs.Players;
+@using StanwayRonnies.Services;
+@inject IPlayerData PlayerData
+
+<PageTitle>Availability</PageTitle>
+<h1> Player Availability</h1>
+@if (players  is not null)
+{
+    <table class="table table-responsive-sm table-hover">
+        <thead>
+            <tr>
+                <th>Player</th>
+                <th>Edit Availability</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in players)
+            {
+               <tr>
+                    <td>@p.Fullname</td>
+                    <td><a href="me/@p.Id" class="btn btn-lg btn-danger">Edit</a></td>
+               </tr>  
+            }
+          
+        </tbody>
+
+    </table>
+ 
+}
+else
+{
+    <p>Loading please wait...</p>
+}
+
+@code {
+    private IEnumerable<PlayerSummaryDto> players;
+
+    protected async override Task OnInitializedAsync()
+    {
+        players = await PlayerData.GetPlayers();
+    }
+}
