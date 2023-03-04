@@ -21,6 +21,7 @@ else
             <tr>
                 <th>Date</th>
                 <th>Opponents</th>
+                <th>Available?</th>
 
             </tr>
         </thead>
@@ -28,19 +29,21 @@ else
             @foreach (var f in myAvailability.PlayersCurrentAvailability)
 
             {
-                var availableText = f.CurrentAvailabilityStatus ? "Yes" : "No";
-                var btnClass = "btn btn-danger custom-btn";
+                //var theDate = Convert.ToDateTime(f.DateOfFixture);
+                
+                var availableText = f.CurrentAvailabilityStatus ? "Yes" : "No ";
+                var btnClass = "btn btn-sm btn-danger custom-btn";
                 if (f.CurrentAvailabilityStatus)
                 {
-                    btnClass = "btn btn-success custom-btn";
+                    btnClass = "btn btn-sm btn-success custom-btn";
                 }
                 <tr>
                     <td>
-                        @f.DateOfFixture  <small>[@availableText]</small><br />
-                        @f.StartTime
+                        @f.DateOfFixture<br />
+                        @f.StartTime <small>pm</small>
                     </td>
-                    <td><button style="width: 60%" class="@btnClass" @onclick="() => Save(f.FixtureId, f.CurrentAvailabilityStatus)">@f.Opponent (@f.Venue) @f.StartTime</button></td>
-
+                    <td>@f.Opponent (@f.Venue)</td>
+                    <td><button style="width: 60%" class="@btnClass" @onclick="() => Save(f.FixtureId, f.CurrentAvailabilityStatus)">@availableText</button></td>
                 </tr>
             }
 
