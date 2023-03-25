@@ -47,7 +47,7 @@ else
 }
 
 @code {
-    private IEnumerable<FixtureCountSummaryDto> fixtureCounts;
+    private IEnumerable<FixtureCountSummaryDto> fixtureCounts = new List<FixtureCountSummaryDto>();
     private string countStyle = "";
 
     protected async override Task OnInitializedAsync()

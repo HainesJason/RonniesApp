@@ -2,10 +2,12 @@
 @using SMS.Shared.DTOs.Availability;
 @using StanwayRonnies.Services;
 @inject IAvailabilityData AvailabilityData
+
+
 @if (fixtureDetail is not null)
 {
     <h3>Availability for @fixtureDetail.Opponents</h3>
-    <h5>@fixtureDetail.Venue.ToString() - @DateTime.Parse(fixtureDetail.DateOfFixture).ToString("dd MMMM") (Start Time: @fixtureDetail.StartTime)</h5>
+    <h5>@fixtureDetail.Venue.ToString() - @fixtureDetail.DateOfFixture (Start Time: @fixtureDetail.StartTime)</h5>
     
     <table class="table table-responsive-sm table-hover">
         <thead>
@@ -14,11 +16,12 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var p in fixtureDetail.AvailablePlayers)
-            {
+           @foreach (var p in fixtureDetail.AvailablePlayers)
+            {           
                 <tr>
-                    <td>@p.Fullname</td>
+                    <td>@count) @p.Fullname</td>
                 </tr>
+                count++;
             }
         </tbody>
     </table>
@@ -31,6 +34,7 @@ else
 @code {
     [Parameter]
     public int Id { get; set; }
+    private int count = 1;
 
     private PlayersAvailableForFixtureDto fixtureDetail = new();
 
