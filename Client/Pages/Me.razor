@@ -68,7 +68,7 @@ else
 
     protected async Task Save(int fixtureId, bool currentStatus)
     {
-        Console.WriteLine(fixtureId.ToString(), currentStatus.ToString());
+       // Console.WriteLine(fixtureId.ToString(), currentStatus.ToString());
         var dataToPost = new AddAvailabilityDto
             {
                 FixtureId = fixtureId,
