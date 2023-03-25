@@ -1,4 +1,5 @@
 ﻿using SMS.Shared.Enums;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace SMS.Shared.DTOs.Fixtures
@@ -9,7 +10,7 @@ namespace SMS.Shared.DTOs.Fixtures
         [MaxLength(100)]
         public string Opponent { get; set; } = string.Empty;
         [Required]
-        public string DateOfFixture { get; set; }
+        public DateTime DateOfFixture { get; set; }
         [EnumDataType(typeof(VenueEnum), ErrorMessage = "Value must be 'Home' or 'Away'")]
         public VenueEnum Venue { get; set; }
         [Required]

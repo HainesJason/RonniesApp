@@ -196,7 +196,7 @@ namespace Shared.BLL
                     {
                         Id = f.Id,
                         Opponent = f.Opponent,
-                        DateOfFixture = f.DateOfFixture.ToString(),
+                        DateOfFixture = f.DateOfFixture,
                         NumberOfPlayersRequired = f.NumberOfPlayersRequired,
                         StartTime = f.StartTime,
                         Venue = f.Venue.ToString()
@@ -332,7 +332,7 @@ namespace Shared.BLL
             {
                 FixtureId = fixture.Id,
                 Opponents = fixture.Opponent,
-                DateOfFixture = fixture.DateOfFixture,
+                DateOfFixture = fixture.DateOfFixture.ToString(),
                 Venue = fixture.Venue,
                 StartTime = fixture.StartTime
             };
