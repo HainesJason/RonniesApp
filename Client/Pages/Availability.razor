@@ -34,7 +34,7 @@ else
 }
 
 @code {
-    private IEnumerable<PlayerSummaryDto> players;
+    private IEnumerable<PlayerSummaryDto> players = new List<PlayerSummaryDto>();
 
     protected async override Task OnInitializedAsync()
     {
