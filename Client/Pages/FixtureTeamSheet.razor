@@ -5,7 +5,7 @@
 @if (fixtureDetail is not null)
 {
     <h3>Availability for @fixtureDetail.Opponents</h3>
-    <h5>@fixtureDetail.Venue.ToString() - @fixtureDetail.DateOfFixture (Start Time: @fixtureDetail.StartTime)</h5>
+    <h5>@fixtureDetail.Venue.ToString() - @DateTime.Parse(fixtureDetail.DateOfFixture).ToString("dd MMMM") (Start Time: @fixtureDetail.StartTime)</h5>
     
     <table class="table table-responsive-sm table-hover">
         <thead>
@@ -32,7 +32,7 @@ else
     [Parameter]
     public int Id { get; set; }
 
-    private PlayersAvailableForFixtureDto fixtureDetail;
+    private PlayersAvailableForFixtureDto fixtureDetail = new();
 
     protected async override Task OnInitializedAsync()
     {
