@@ -4,6 +4,9 @@ using BlazorApp.Client;
 using StanwayRonnies.Services;
 using Refit;
 
+//todo:  https://chrissainty.com/getting-started-with-blazored-typeahead/
+
+
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
