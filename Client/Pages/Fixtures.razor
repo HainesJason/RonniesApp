@@ -23,7 +23,7 @@
             {
                 <tr>
                     <td><a href="fixtureteamsheet/@fc.FixtureId">@fc.FixtureDetail</a></td>
-                    <td>@fc.DateOfFixture.ToString("dd MMMM")</td>
+                    <td>@fc.DateOfFixture.ToString("dd MMMM") (@fc.StartTime)</td>
                     
                     @if (fc.PlayersAvailable < fc.PlayersRequired)
                     {

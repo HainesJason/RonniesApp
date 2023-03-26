@@ -9,5 +9,6 @@ namespace SMS.Shared.DTOs.Availability
         public DateTime DateOfFixture { get; set; }
         public int PlayersAvailable { get; set; }
         public int PlayersRequired { get; set; }
+        public string StartTime { get; set; } = string.Empty;
     }
 }
