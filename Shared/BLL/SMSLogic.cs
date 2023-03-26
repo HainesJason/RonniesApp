@@ -401,7 +401,7 @@ namespace Shared.BLL
                     {
                         FixtureId = f.Id,
                         Opponent = f.Opponent,
-                        DateOfFixture = f.DateOfFixture.ToString(),
+                        DateOfFixture = f.DateOfFixture,
                         Venue = f.Venue == "Home" ? "H" : "A",
                         StartTime = f.StartTime,
                         CurrentAvailabilityStatus = availabilityFlag
