@@ -1,6 +1,27 @@
 ﻿@page "/events"
-<h3>Events</h3>
+@using SMS.Shared.Models;
+@using StanwayRonnies.Services;
+@inject IEventData EventData
+
+<h3>Club Events</h3>
+@if (allEvents is not null)
+{
+    foreach (var ev in allEvents)
+    {
+       <EventCard ev="ev" />
+    }
+}
+else
+{
+    <p>Loading please wait...</p>
+}
 
 @code {
+    private IEnumerable<Event> allEvents = new List<Event>();
 
+    protected async override Task OnInitializedAsync()
+    {
+        allEvents = await EventData.GetAllEvents();
+
+    }
 }

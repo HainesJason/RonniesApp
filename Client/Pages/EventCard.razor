@@ -1,0 +1,23 @@
+﻿@using SMS.Shared.Models;
+<div class="card">
+    <div class="card-header">
+        <strong>@ev.Name</strong><br />
+        <span class="text-success">@ev.DateOfEvent.ToString("dd MMMM") (Start Time: @ev.StartTime)</span>
+    </div>
+    <div class="card-body">
+        <strong>Details</strong>
+        <p>@ev.Details</p>
+        <strong>Organiser</strong>
+        <p>@ev.Organiser</p>
+    </div>
+    <div class="card-footer">
+        <button class="btn btn-sm btn-success">Going</button>&nbsp;
+        <button class="btn btn-sm btn-danger">Not Going</button>&nbsp;
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public Event ev { get; set; } = new();
+
+}

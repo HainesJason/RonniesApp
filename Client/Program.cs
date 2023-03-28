@@ -24,6 +24,10 @@ builder.Services.AddRefitClient<IAvailabilityData>().ConfigureHttpClient(c =>
 {
     c.BaseAddress = new Uri("https://smsapi20230130193419.azurewebsites.net/api");
 });
+builder.Services.AddRefitClient<IEventData>().ConfigureHttpClient(c =>
+{
+    c.BaseAddress = new Uri("https://smsapi20230130193419.azurewebsites.net/api");
+});
 await builder.Build().RunAsync();
 
 //https://smsapi20230130193419.azurewebsites.net/api/Fixture

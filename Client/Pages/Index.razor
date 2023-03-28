@@ -1,10 +1,33 @@
 ﻿@page "/"
 @using SMS.Shared.DTOs.Players;
+@using SMS.Shared.Models;
 @using StanwayRonnies.Services;
 @inject IPlayerData PlayerData
+@inject IEventData EventData
 
 <PageTitle>Index</PageTitle>
 <h1>Stanway Cricket Club</h1>
-<p>Up and coming events will appear here....</p>
-<p>Fantasy league will appear here...</p>
-<p> and more....!!</p>
+<h3>Up and coming events....</h3>
+@if (allEvents is not null)
+{
+    foreach (var ev in allEvents)
+    {
+        
+        <EventCard ev="ev" />
+    }
+}
+else
+{
+    
+}
+
+@code {
+    private IEnumerable<Event> allEvents = new List<Event>();
+
+    protected async override Task OnInitializedAsync()
+    {
+        allEvents = await EventData.GetAllEvents();
+        allEvents = allEvents.Where(x => x.DateOfEvent >= DateTime.Now.AddDays(-1)).Take<Event>(3).ToList();
+
+    }
+}
