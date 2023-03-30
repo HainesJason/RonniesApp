@@ -22,16 +22,16 @@
             @foreach (var fc in fixtureCounts)
             {
                 <tr>
-                    <td><a href="fixtureteamsheet/@fc.FixtureId">@fc.FixtureDetail</a></td>
-                    <td><small>@fc.DateOfFixture.ToString("dd MMMM") (@fc.StartTime pm)</small></td>
+                    <td><a class="btn btn-sm btn-info" title="Click here to view details" href="fixtureteamsheet/@fc.FixtureId">@fc.FixtureDetail</a></td>
+                    <td><small>@fc.DateOfFixture.ToString("dd MMM")</small></td>
                     
                     @if (fc.PlayersAvailable < fc.PlayersRequired)
                     {
-                        countStyle = "text-danger";
+                        countStyle = "badge rounded-pill bg-danger";
                     }
                     else
                     {
-                        countStyle = "text-success";
+                        countStyle = "badge rounded-pill bg-success";
                     }
                     <td><span class="@countStyle">@fc.PlayersAvailable</span></td>
                     
