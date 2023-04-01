@@ -11,7 +11,7 @@
     To use this system please enter your surname:
     <InputText id="name" @bind-Value="whoAmiI.NameSupplied" />
 
-    <button type="submit" class="btn btn-danger">Submit</button>
+    <button type="submit" class="btn btn-danger">Search for your name</button>
 </EditForm>
 @if (playersSearch.Count() > 0)
 {
@@ -71,8 +71,8 @@
         try
         {
             await RegisteredUser.Register(registerdUser);
-            await localStorage.SetItemAsync("playerId", Id);
-            await localStorage.SetItemAsync("playerName", name);
+            await localStorage.SetItemAsync("memberId", Id);
+            await localStorage.SetItemAsync("memberName", name);
             StateHasChanged();
         }
         catch (Exception)
