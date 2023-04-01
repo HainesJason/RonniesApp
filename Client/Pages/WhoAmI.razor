@@ -6,6 +6,7 @@
 @using StanwayRonnies.Services;
 @inject IPlayerData PlayerData ;
 @inject IRegisteredUser RegisteredUser;
+@inject NavigationManager NavigationManager
 
 <EditForm Model="@whoAmiI" OnSubmit="@HandleSubmit">
     To use this system please enter your surname:
@@ -73,7 +74,8 @@
             await RegisteredUser.Register(registerdUser);
             await localStorage.SetItemAsync("memberId", Id);
             await localStorage.SetItemAsync("memberName", name);
-            StateHasChanged();
+            
+            NavigationManager.NavigateTo("/Bounce");
         }
         catch (Exception)
         {

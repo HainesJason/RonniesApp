@@ -1,0 +1,10 @@
+﻿@page "/Bounce"
+@inject NavigationManager NavigationManager
+
+@code {
+    protected override async Task  OnInitializedAsync()
+    {
+        await Task.Delay(1);
+        NavigationManager.NavigateTo("/");
+    }
+}
