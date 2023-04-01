@@ -9,6 +9,7 @@ public interface IPlayerData
     [Get("/Player")]
     Task<IEnumerable<PlayerSummaryDto>> GetPlayers();
 
+   
     [Get("/Player/myAvailability/{id}")]
     Task<MeDTO> MyAvailability(int id);
 }

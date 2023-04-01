@@ -1,0 +1,85 @@
+﻿@inject Blazored.LocalStorage.ILocalStorageService localStorage
+@using BlazorApp.Client.Services;
+@using BlazorApp.Shared.Models;
+@using SMS.Shared.DTOs.Players;
+@using System.Text.Json;
+@using StanwayRonnies.Services;
+@inject IPlayerData PlayerData ;
+@inject IRegisteredUser RegisteredUser;
+
+<EditForm Model="@whoAmiI" OnSubmit="@HandleSubmit">
+    To use this system please enter your surname:
+    <InputText id="name" @bind-Value="whoAmiI.NameSupplied" />
+
+    <button type="submit" class="btn btn-danger">Submit</button>
+</EditForm>
+@if (playersSearch.Count() > 0)
+{
+
+    <table class="table table-responsive-sm table-hover">
+        <thead>
+            <tr>
+                <th>Select your name from below....</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var search in playersSearch)
+            {
+                <tr>
+                    <td><button class="btn btn-sm btn-info" @onclick="() => Register(search.Id, search.Fullname)">@search.Fullname </button></td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+}
+
+
+@code {
+    private WhoAmIDTO whoAmiI = new();
+    private IEnumerable<PlayerSummaryDto> players = new List<PlayerSummaryDto>();
+    private IEnumerable<PlayerSummaryDto> playersSearch = new List<PlayerSummaryDto>();
+
+    protected async override Task OnInitializedAsync()
+    {
+
+        // load from api
+        players = await PlayerData.GetPlayers();
+
+    }
+
+    private void HandleSubmit()
+    {
+
+        // Process the form
+        if (string.IsNullOrEmpty(whoAmiI.NameSupplied)) return;
+
+        // Search for the surname
+        playersSearch = players.Where(x => x.Fullname.ToLower().Contains(whoAmiI.NameSupplied.ToLower())).ToList();
+
+    }
+
+    private async Task Register(int Id, string name)
+    {
+
+        var registerdUser = new RegisteredUsers
+            {
+                MemberId = Id,
+                MemberName = name,
+                DateRegistered = DateTime.Now
+            };
+        try
+        {
+            await RegisteredUser.Register(registerdUser);
+            await localStorage.SetItemAsync("playerId", Id);
+            await localStorage.SetItemAsync("playerName", name);
+            StateHasChanged();
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
+
+    }
+}

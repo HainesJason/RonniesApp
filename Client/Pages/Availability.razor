@@ -4,6 +4,7 @@
 @inject IPlayerData PlayerData
 
 <PageTitle>Availability</PageTitle>
+
 <h1> Player Availability (@players.Count())</h1>
 @if (players  is not null)
 {
@@ -39,5 +40,6 @@ else
     protected async override Task OnInitializedAsync()
     {
         players = await PlayerData.GetPlayers();
+        players = players.Where(x => x.IsActivePlayer == true).ToList();
     }
 }

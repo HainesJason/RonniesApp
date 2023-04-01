@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using BlazorApp.Client;
 using StanwayRonnies.Services;
 using Refit;
+using Blazored.LocalStorage;
+using BlazorApp.Client.Services;
 
 //todo:  https://chrissainty.com/getting-started-with-blazored-typeahead/
 
@@ -28,6 +30,12 @@ builder.Services.AddRefitClient<IEventData>().ConfigureHttpClient(c =>
 {
     c.BaseAddress = new Uri("https://smsapi20230130193419.azurewebsites.net/api");
 });
+builder.Services.AddRefitClient<IRegisteredUser>().ConfigureHttpClient(c =>
+{
+    c.BaseAddress = new Uri("https://smsapi20230130193419.azurewebsites.net/api");
+});
+builder.Services.AddBlazoredLocalStorage();
 await builder.Build().RunAsync();
 
 //https://smsapi20230130193419.azurewebsites.net/api/Fixture
+//https://smsapi20230130193419.azurewebsites.net/api/RegisteredUsers

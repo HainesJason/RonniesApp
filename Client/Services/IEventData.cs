@@ -1,5 +1,4 @@
 ﻿using Refit;
-using SMS.Shared.DTOs.Availability;
 using SMS.Shared.Models;
 
 namespace StanwayRonnies.Services;
